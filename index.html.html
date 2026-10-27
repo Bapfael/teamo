@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Amor da Minha Vida</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cursive: ['Dancing Script', 'cursive'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        romantic: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            80: '#9f1239',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Animações customizadas */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+        .heart-particle {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            animation: float 8s linear infinite;
+            z-index: 0;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-100 via-pink-50 to-red-100 min-h-screen font-sans text-gray-800 relative overflow-x-hidden selection:bg-rose-500 selection:text-white">
+
+    <!-- Fundo de Corações Flutuantes -->
+    <div id="hearts-container"></div>
+
+    <!-- Conteúdo Principal -->
+    <div class="relative z-10 min-h-screen flex flex-col justify-between p-4 sm:p-6 md:p-8">
+
+        <!-- ETAPA 1: Entrada do Nome -->
+        <div id="step-name" class="max-w-md w-full mx-auto my-auto glass-card rounded-3xl p-8 shadow-2xl text-center border border-rose-200 transition-all duration-500">
+            <div class="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 text-rose-500 text-3xl shadow-inner">
+                <i class="fa-solid fa-heart animate-pulse"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Uma Surpresa Especial</h1>
+            <p class="text-gray-600 mb-6 text-sm">Digite o nome da mulher mais incrível do mundo para desbloquear esta mensagem amorosa.</p>
+            
+            <form id="name-form" onsubmit="startExperience(event)" class="space-y-4">
+                <div>
+                    <input type="text" id="girlfriend-name" placeholder="Digite o nome dela aqui..." required
+                        class="w-full px-5 py-3.5 rounded-2xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent text-center text-lg font-semibold text-rose-700 placeholder-rose-300 shadow-sm transition">
+                </div>
+                <button type="submit" 
+                    class="w-full py-4 bg-gradient-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2">
+                    <span>Começar Surpresa</span>
+                    <i class="fa-solid fa-sparkles"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- CONTEÚDO PRINCIPAL DA DECLARAÇÃO (Oculto inicialmente) -->
+        <div id="main-content" class="hidden max-w-4xl w-full mx-auto space-y-12 py-8">
+
+            <!-- Cabeçalho -->
+            <header class="text-center space-y-3 glass-card p-8 rounded-3xl shadow-xl">
+                <span class="inline-block px-4 py-1.5 bg-rose-100 text-rose-600 font-semibold rounded-full text-xs uppercase tracking-wider">Feito com todo o amor do mundo</span>
+                <h1 class="text-4xl sm:text-6xl font-cursive font-bold text-rose-600">
+                    Para o meu amor, <span id="display-name" class="underline decoration-rose-300"></span> ❤️
+                </h1>
+                <p class="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+                    Preparei esta pequena página para te lembrar o quanto você é essencial na minha vida e o quanto nosso futuro juntos será incrível.
+                </p>
+            </header>
+
+            <!-- SEÇÃO 1: Razões para te amar -->
+            <section class="space-y-6">
+                <div class="text-center">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-star text-amber-400"></i>
+                        <span>Por que eu te amo tanto?</span>
+                    </h2>
+                    <p class="text-gray-500 text-sm">Clique nos cartões para revelar mais razões!</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="reasons-grid">
+                    <!-- Cards de Razões serão gerados dinamicamente via JS -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: Nossas Metas para o Futuro -->
+            <section class="glass-card p-6 sm:p-8 rounded-3xl shadow-xl space-y-6">
+                <div class="text-center space-y-1">
+                    <span class="text-rose-500 text-sm font-bold uppercase tracking-widest">Nosso Futuro</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">Nossos Sonhos & Metas Juntos</h2>
+                    <p class="text-gray-500 text-sm">Tudo o que ainda vamos construir e viver lado a lado.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="goals-list">
+                    <!-- Metas geradas dinamicamente -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3: Declaração Final de Amor -->
+            <section class="bg-gradient-to-r from-rose-500 to-red-600 text-white p-8 sm:p-12 rounded-3xl shadow-2xl text-center space-y-6 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto text-2xl backdrop-blur-md">
+                    <i class="fa-solid fa-infinity animate-pulse text-white"></i>
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-cursive font-bold">Quero você para o resto da minha vida!</h2>
+
+                <p id="final-declaration-text" class="text-rose-100 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-light">
+                    <!-- Mensagem customizada preenchida via JS -->
+                </p>
+
+                <div class="pt-4">
+                    <button onclick="triggerConfetti()" class="px-8 py-3.5 bg-white text-rose-600 font-bold rounded-full shadow-lg hover:bg-rose-50 hover:scale-105 active:scale-95 transition duration-200">
+                        <i class="fa-solid fa-heart mr-2"></i> Confirmar Nosso "Para Sempre"
+                    </button>
+                </div>
+            </section>
+
+            <!-- Rodapé -->
+            <footer class="text-center text-xs text-rose-400 py-4">
+                <p>Criado com amor infinito especificamente para você ❤️</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Script de Efeitos e Lógica -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Dados das Razões
+        const reasons = [
+            { icon: "fa-smile-beam", title: "Seu Sorriso", desc: "Tem o poder de iluminar o meu dia mais difícil e me trazer paz instantânea." },
+            { icon: "fa-heart-pulse", title: "Seu Carinho", desc: "A forma doce e acolhedora como você me cuida faz eu me sentir o homem mais sortudo do mundo." },
+            { icon: "fa-gem", title: "Sua Essência", desc: "Sua inteligência, bondade e esse seu jeito único que me apaixona todos os dias." },
+            { icon: "fa-handshake-angle", title: "Nossa Parceria", desc: "Saber que posso contar com você para qualquer momento da vida, bons ou ruins." },
+            { icon: "fa-laugh-squint", title: "Nossas Risadas", desc: "As nossas brincadeiras bobas e os momentos em que só a gente entende a piada." },
+            { icon: "fa-sparkles", title: "Você É Meu Lar", desc: "Estar com você traz uma sensação indescritível de pertencimento e paz." }
+        ];
+
+        // Dados das Metas
+        const goals = [
+            { icon: "fa-plane-departure", title: "Viagens Inesquecíveis", desc: "Explorar o mundo, conhecer praias paradisíacas e colecionar passaportes juntos." },
+            { icon: "fa-house-chimney-heart", title: "Nossa Casa Própria", desc: "Montar o nosso cantinho com a nossa cara, acolhedor e cheio de amor." },
+            { icon: "fa-car-side", title: "O Carro dos Sonhos", desc: "Fazer viagens incríveis na estrada ouvindo nossas músicas favoritas no nosso carro." },
+            { icon: "fa-baby-carriage", title: "Nossa Família & Filhos", desc: "Construir uma família linda, transmitir todo nosso amor e ver nossos filhos crescerem." },
+            { icon: "fa-utensils", title: "Jantares e Encontros", desc: "Nunca deixar a rotina apagar a chama de sairmos para dates especiais." },
+            { icon: "fa-glasses", title: "Envelhecer Juntos", desc: "Continuar de mãos dadas mesmo quando o cabelo ficar branquinho." }
+        ];
+
+        // Criar Partículas de Coração de Fundo
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartIcons = ['fa-heart', 'fa-heart-pulse', 'fa-hand-holding-heart'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('i');
+                const randomIcon = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.className = `fa-solid ${randomIcon} heart-particle text-rose-300/40`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${6 + Math.random() * 6}s`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heart.style.fontSize = `${14 + Math.random() * 24}px`;
+                container.appendChild(heart);
+            }
+        }
+
+        // Função para Iniciar a Experiência
+        function startExperience(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('girlfriend-name').value.trim();
+            if (!nameInput) return;
+
+            // Transição de telas
+            const stepName = document.getElementById('step-name');
+            const mainContent = document.getElementById('main-content');
+
+            stepName.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                stepName.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                
+                // Preencher dados
+                document.getElementById('display-name').innerText = nameInput;
+                document.getElementById('final-declaration-text').innerText = 
+                    `${nameInput}, desde que você entrou na minha vida, tudo ganhou mais cor e sentido. Não tenho dúvidas de que você é a pessoa certa para mim. Quero acordar todos os dias ao seu lado, realizar cada um desses sonhos e construir uma história linda. Te amo infinitamente e quero você para o resto da minha vida!`;
+
+                // Renderizar cards
+                renderReasons();
+                renderGoals();
+                
+                // Soltar confetes de celebração
+                triggerConfetti();
+                
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 400);
+        }
+
+        // Renderizar Razões
+        function renderReasons() {
+            const grid = document.getElementById('reasons-grid');
+            grid.innerHTML = reasons.map((r, index) => `
+                <div onclick="this.classList.toggle('bg-rose-50')" 
+                    class="glass-card p-5 rounded-2xl shadow-sm hover:shadow-md transition duration-300 cursor-pointer border border-rose-100 flex flex-col justify-between group">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-500 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                            <i class="fa-solid ${r.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-800">${r.title}</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 leading-relaxed">${r.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Renderizar Metas
+        function renderGoals() {
+            const list = document.getElementById('goals-list');
+            list.innerHTML = goals.map((g, index) => `
+                <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/60 border border-rose-100 hover:bg-white/90 transition">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-400 to-pink-500 text-white flex-shrink-0 flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid ${g.icon}"></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                            <span>${g.title}</span>
+                            <i class="fa-solid fa-circle-check text-rose-400 text-xs"></i>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">${g.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Confetes
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#f43f5e', '#fb7185', '#ffe4e6', '#ffffff']
+            });
+        }
+
+        // Inicializar partículas na carga
+        window.onload = createHearts;
+    </script>
+</body>
+</html>
